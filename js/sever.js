@@ -61,6 +61,67 @@ express.get("/zhuce",(request,response)=>{
 	})
 
 })
+// 加入购物车
+express.get("/xiangqing",(request,response)=>{
+	let name = request.query.name;
+    let img = request.query.img;
+    let wupin = request.query.wupin;
+    let wujia = request.query.wujia;
+    if(name&&img&&wupin&&wujia){
+        sql.query(`INSERT INTO gouwuche (name,img,wupin,wujia) VALUES ("${name}","${img}","${wupin}","${wujia}")`,(error)=>{
+            if(error){
+                response.send("122")
+            }
+            else{
+                response.send("12")
+            }
+        })
+    }
+    if(name===""||img===""||wupin===""||wujia===""){
+        response.send("122")
+    }
+
+})
+// 获取购物车
+express.get("/gouwuche",(request,response)=>{
+	const name = request.query.name;
+	let s = `SELECT * FROM gouwuche WHERE name="${name}"`;
+	sql.query(s,(error,data)=>{
+		if(error){
+			console.log(reeor)
+			response.end("error")
+		}
+		else{
+			response.send(data)
+		}
+	})
+})
+express.get("/chazhao",(request,response)=>{
+	const name = request.query.name;
+	let s = `SELECT * FROM gouwuche WHERE name="${name}"`;
+	sql.query(s,(error,data)=>{
+		if(error){
+			console.log(reeor)
+			response.end("error")
+		}
+		else{
+			response.send(data)
+		}
+	})
+})
+// 删除购物车数据
+express.get("/shanchu",(request,response)=>{
+	const id=request.query.id;
+	sql.query(`DELETE FROM gouwuche WHERE id=${id}`,(error,data)=>{
+		if(error){
+			console.log(error)
+			response.end("error")
+		}
+		else{
+			response.end("11")
+		}
+	})
+})
 // 监听在哪一个8080端口上
 express.listen(port)
 console.log("server is running at " + port)

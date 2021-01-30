@@ -1,3 +1,4 @@
+let ip="192.168.1.105";
 function add(){
     var arr=("0123456789qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM")
     c=""
@@ -16,13 +17,13 @@ $("#enrollshen .box .u2 .l3 .enrollDdeng").click(function(){
             if($(".enrollyanzheng").val()===$(".enrollma").html()){
             if($(".enrolljizhu")[0].checked){
                 let http=new XMLHttpRequest()
-                http.open("get",`http://192.168.0.105:8080/zhuce?name=${$(".enrollyonghu").val()}&mima=${$(".enrollmima").val()}`);
+                http.open("get",`http://`+ip+`:8080/zhuce?name=${$(".enrollyonghu").val()}&mima=${$(".enrollmima").val()}`);
                 http.send()
                 http.onreadystatechange=function(){
                     if(http.readyState===4){
                         if(http.responseText==="success"){
                             alert("注册成功,点击去登录")
-                            location.href="http://192.168.0.105/%E9%A1%B9%E7%9B%AE%E5%91%A8/denglu.html"
+                            location.href="http://"+ip+"/%E9%A1%B9%E7%9B%AE%E5%91%A8/denglu.html"
                         }
                         else{
                             alert("注册失败")
